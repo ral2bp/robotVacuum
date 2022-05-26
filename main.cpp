@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Room.h"
+#include "RobotVacuum.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -9,17 +10,20 @@ int main() {
     room.initialize();
 
     //TV stand on the left wall
-    room.addObstacle(Coordinate(0,3), 1,5);
+    room.addObstacle(Coordinate(0,3), 2,5);
 
     //Small table in front of couch
-    room.addObstacle(Coordinate(4,4), 2,3);
+    room.addObstacle(Coordinate(4,4), 3,3);
 
     //Couch
-    room.addObstacle(Coordinate(7,2), 3,7);
+    room.addObstacle(Coordinate(8,2), 5,7);
 
-    room.draw();
+    RobotVacuum robot = RobotVacuum(room, Coordinate(0,0));
 
-    std::cin.get();
+    while(!robot.isFinished()) {
+        robot.move();
+        room.draw();
+    }
 
     return 0;
 }

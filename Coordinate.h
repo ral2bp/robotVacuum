@@ -25,6 +25,14 @@ public:
         return y;
     }
 
+    void setX(int newX) {
+        x = newX;
+    }
+
+    void setY(int newY) {
+        y = newY;
+    }
+
 private:
 int x;
 int y;

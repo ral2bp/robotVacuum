@@ -7,7 +7,9 @@
 
 #include <iostream>
 #include <array>
+#include <thread>
 #include "Coordinate.h"
+#include "Direction.h"
 
 class Room {
 public:
@@ -15,10 +17,21 @@ public:
     void draw() const;
     void addObstacle(Coordinate position, int width, int height);
 
+    void updateRobotPosition(Coordinate location);
+    Room();
+
+    bool nextTileTraversableIn(Direction direction);
+
 private:
-    int height;
-    int width;
-    std::array<std::array<char, 14>,10> room;
+    //this is a Y,X coordinate system, with 0-0 on top left, Y increasing to the right, and X increasing to the bottom
+    std::array<std::array<char, 14>,10> room{};
+    Coordinate robotPosition;
+
+    bool tileIsWall(char tileContent);
+
+    bool requestedTileIsOutOfBounds(Direction direction);
+
+    static constexpr char furniture = 178;
 };
 
 
