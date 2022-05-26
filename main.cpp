@@ -10,13 +10,13 @@ int main() {
     room.initialize();
 
     //TV stand on the left wall
-    room.addObstacle(Coordinate(0,3), 2,5);
+    room.addObstacle(Coordinate(0,3), 2,4);
 
     //Small table in front of couch
-    room.addObstacle(Coordinate(4,4), 3,3);
+    room.addObstacle(Coordinate(4,4), 3,2);
 
     //Couch
-    room.addObstacle(Coordinate(8,2), 5,7);
+    room.addObstacle(Coordinate(8,3), 5,4);
 
     RobotVacuum robot = RobotVacuum(room, Coordinate(0,0));
 
