@@ -23,8 +23,10 @@ public:
     bool nextTileTraversableIn(Direction direction);
 
 private:
+    static constexpr int roomWidth = 14;
+    static constexpr int roomHeigth = 10;
     //this is a Y,X coordinate system, with 0-0 on top left, Y increasing to the right, and X increasing to the bottom
-    std::array<std::array<char, 14>,10> room{};
+    std::array<std::array<char, roomWidth>,roomHeigth> room{};
     Coordinate robotPosition;
 
     bool tileIsWall(char tileContent);

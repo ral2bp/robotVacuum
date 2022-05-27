@@ -75,9 +75,9 @@ bool Room::requestedTileIsOutOfBounds(Direction direction) {
         case(Direction::UP):
             return robotPosition.getX()-1 < 0;
         case(Direction::RIGHT):
-            return robotPosition.getY()+1 > 13;
+            return robotPosition.getY()+1 > roomWidth-1;
         case(Direction::DOWN):
-            return robotPosition.getX()+1 > 9;
+            return robotPosition.getX()+1 > roomHeigth-1;
         case(Direction::LEFT):
             return robotPosition.getY()-1 < 0;
         default:
