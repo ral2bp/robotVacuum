@@ -29,20 +29,25 @@ void RobotVacuum::resolveCollisionWithUTurns() {
             if (roomToClean.nextTileTraversableIn(getDirectionAfterRightTurn())) {
                 turnRight();
                 moveInDirection();
-                turnRight();
+                if (roomToClean.nextTileTraversableIn(getDirectionAfterRightTurn())) {
+                    turnRight();
+                    lastUTurn = Direction::RIGHT;
+                }
             } else {
                 turnLeft();
             }
-            lastUTurn = Direction::RIGHT;
         } else {
             if (roomToClean.nextTileTraversableIn(getDirectionAfterLeftTurn())) {
                 turnLeft();
                 moveInDirection();
-                turnLeft();
+                if (roomToClean.nextTileTraversableIn(getDirectionAfterLeftTurn())) {
+                    turnLeft();
+                    lastUTurn = Direction::LEFT;
+                }
             } else {
                 turnRight();
             }
-            lastUTurn = Direction::LEFT;
+
         }
     }
 }
