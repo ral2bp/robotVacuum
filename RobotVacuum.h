@@ -25,6 +25,16 @@ private:
     Direction direction;
 
     void turnRight();
+
+    Direction getDirectionAfterRightTurn();
+
+    Direction getDirectionAfterLeftTurn();
+
+    Direction lastUTurn;
+
+    void resolveCollisionWithUTurns();
+
+    void turnRightUntilNotAvailableOrStuck();
 };
 
 

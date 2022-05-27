@@ -3,22 +3,44 @@
 //
 #include "Direction.h"
 
-Direction& operator++(Direction& c)
+Direction& operator++(Direction& d)
 {
     using IntType = typename std::underlying_type<Direction>::type;
-    if ( c == Direction::LEFT )
-        c = static_cast<Direction>(0);
+    if (d == Direction::LEFT )
+        d = static_cast<Direction>(0);
     else
-        c = static_cast<Direction>(static_cast<IntType>(c) + 1 );
-    return c;
+        d = static_cast<Direction>(static_cast<IntType>(d) + 1 );
+    return d;
 }
 
-Direction& operator--(Direction& c)
+Direction& operator--(Direction& d)
 {
     using IntType = typename std::underlying_type<Direction>::type;
-    if ( c == Direction::UP )
-        c = static_cast<Direction>(3);
+    if (d == Direction::UP )
+        d = static_cast<Direction>(3);
     else
-        c = static_cast<Direction>(static_cast<IntType>(c) - 1 );
-    return c;
+        d = static_cast<Direction>(static_cast<IntType>(d) - 1 );
+    return d;
+}
+
+Direction operator+(const Direction d, int i)
+{
+    Direction result;
+    using IntType = typename std::underlying_type<Direction>::type;
+    if (d == Direction::LEFT )
+        result = static_cast<Direction>(0);
+    else
+        result = static_cast<Direction>(static_cast<IntType>(d) + 1 );
+    return result;
+}
+
+Direction operator-(const Direction d, int i)
+{
+    Direction result;
+    using IntType = typename std::underlying_type<Direction>::type;
+    if (d == Direction::UP )
+        result = static_cast<Direction>(3);
+    else
+        result = static_cast<Direction>(static_cast<IntType>(d) - 1 );
+    return result;
 }
