@@ -6,7 +6,7 @@
 
 
 RobotVacuum::RobotVacuum(Room &roomToClean, Coordinate location) : roomToClean(roomToClean), location(location),
-                                                                   direction(Direction::DOWN) {
+                                                                   direction(Direction::DOWN), lastUTurn(Direction::RIGHT) {
     roomToClean.updateRobotPosition(location);
 }
 
@@ -22,21 +22,21 @@ void RobotVacuum::move() {
 }
 
 void RobotVacuum::resolveCollisionWithUTurns() {
-    if (roomToClean.nextTileTraversableIn(direction))
-        moveInDirection();
-    else{
-        if (lastUTurn == Direction::LEFT) {
-            if (roomToClean.nextTileTraversableIn(getDirectionAfterRightTurn())) {
-                turnRight();
-                moveInDirection();
-                if (roomToClean.nextTileTraversableIn(getDirectionAfterRightTurn())) {
-                    turnRight();
-                    lastUTurn = Direction::RIGHT;
+    if (roomToClean.nextTileTraversableIn(direction)) //if no collision detected
+        moveInDirection(); //move forward
+    else{//if collision was detected
+        if (lastUTurn == Direction::LEFT) {//if the last U-turn was left, follow the plow pattern and turn right!
+            if (roomToClean.nextTileTraversableIn(getDirectionAfterRightTurn())) {//is right turn possible?
+                turnRight();//turn right
+                moveInDirection();//move forward
+                if (roomToClean.nextTileTraversableIn(getDirectionAfterRightTurn())) {//is a complete U-turn to the right possible?
+                    turnRight();//complete U-turn
+                    lastUTurn = Direction::RIGHT;//store completed U-turn
                 }
             } else {
-                turnLeft();
+                turnLeft();//cannot go right, cannot go forward, try going left!
             }
-        } else {
+        } else {//if the last U-turn was right, follow the plow pattern to the left!
             if (roomToClean.nextTileTraversableIn(getDirectionAfterLeftTurn())) {
                 turnLeft();
                 moveInDirection();
@@ -47,7 +47,6 @@ void RobotVacuum::resolveCollisionWithUTurns() {
             } else {
                 turnRight();
             }
-
         }
     }
 }
@@ -71,26 +70,6 @@ void RobotVacuum::moveInDirection() {
     }
     roomToClean.updateRobotPosition(location);
 }
-
-void RobotVacuum::turnRightUntilNotAvailableOrStuck() {
-    if(roomToClean.nextTileTraversableIn(getDirectionAfterRightTurn()))
-    {
-        turnRight();
-    }
-    else if(roomToClean.nextTileTraversableIn(getDirectionAfterLeftTurn()))
-    {
-        turnLeft();
-    }
-    else//neither left, forward or right is available, move back
-    {
-        turnRight();
-        turnRight();
-    }
-
-    moveInDirection();
-}
-
-
 
 void RobotVacuum::turnLeft() {
     --direction;

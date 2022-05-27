@@ -34,7 +34,6 @@ private:
 
     void resolveCollisionWithUTurns();
 
-    void turnRightUntilNotAvailableOrStuck();
 };
 
 
